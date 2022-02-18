@@ -53,6 +53,10 @@ class Account(AbstractBaseUser):
 
     objects = MyAccountManager()
 
+    class Meta:
+        verbose_name = 'account'
+        verbose_name_plural = 'accounts'
+
     def full_name(self):
         return f'{self.first_name} {self.last_name}'
 
