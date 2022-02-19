@@ -1,4 +1,4 @@
-from audioop import reverse
+from django.urls import reverse
 from django.db import models
 
 # Create your models here.
@@ -18,7 +18,7 @@ class Product(models.Model):
     modified_date = models.DateTimeField(auto_now=True)
 
     def get_url(self):
-        return reverse('product_detail', args=[self.category.slug, self.slug])
+        return reverse('store:product_detail', args=[self.category.slug, self.slug])
 
     def __str__(self):
         return self.product_name
