@@ -18,10 +18,14 @@ def store(request, category_slug: str = None):
     else:
         products = Product.objects.filter(is_available=True)
         products_count = products.count()
-    
 
     context = {
         'products': products,
         'count': products_count
     }
     return render(request, 'store/store.html', context)
+
+
+def product_detail(request, category_slug: str = None, product_slug: str = None):
+    context = {}
+    return render(request, 'store/product_detail.html', context)
