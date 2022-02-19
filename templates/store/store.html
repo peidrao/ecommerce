@@ -140,7 +140,13 @@
                                 <del class="price-old">$1980</del>
                             </div> 
                         </div>
-                        <a href="#" class="btn btn-block btn-success">Added to cart </a>
+
+                        {% if product.stock == 0 %}
+                            Out of Stock
+                        {% else %}
+                            <a href="#" class="btn btn-block btn-success">Added to cart </a>
+                        {% endif %}
+                            
                     </figcaption>
                 </figure>
             </div> 
