@@ -27,5 +27,13 @@ def store(request, category_slug: str = None):
 
 
 def product_detail(request, category_slug: str = None, product_slug: str = None):
-    context = {}
+    try:
+        product = Product.objects.get(
+            category__slug=category_slug, slug=product_slug)
+    except Product.DoesNotExist:
+        product = None
+
+    context = {
+        'product': product
+    }
     return render(request, 'store/product_detail.html', context)
