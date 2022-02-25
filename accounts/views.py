@@ -6,6 +6,8 @@ from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
 from django.utils.encoding import force_bytes
 
+from django.contrib import messages
+
 from .forms import RegistrationForm
 from .models import Account
 
@@ -23,7 +25,7 @@ def register(request):
             user = Account.objects.create_user(first_name=first_name, last_name=last_name, email=email, username=username, password=password)
             user.phone_number = phone_number
             user.save()
-
+            messages.success(request, 'Registration successful.')
     else:
         form = RegistrationForm()
     
