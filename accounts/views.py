@@ -12,6 +12,9 @@ from django.contrib.auth.decorators import login_required
 from .forms import RegistrationForm
 from .models import Account
 
+from carts.models import Cart, CartItem
+from carts.views import _cart_id
+
 
 def register(request):
     if request.method == 'POST':
@@ -57,6 +60,16 @@ def login(request):
         user = auth.authenticate(email=email, password=password)
 
         if user is not None:
+            try:
+                cart = Cart.objects.get(cart_id=_cart_id(request))
+                if CartItem.objects.filter(cart=cart).exists():
+                    for item in CartItem.objects.filter(cart=cart):
+                        item.user = user
+                        item.save()
+
+
+            except Cart.DoesNotExist:
+                pass
             auth.login(request, user)
             messages.success(request, 'You are loggen in.')
             return redirect('dashboard')
