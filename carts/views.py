@@ -84,8 +84,6 @@ def remove_cart(request, product_id, cart_id):
         pass
     return redirect('cart')
 
-    
-
 
 def remove_cart_item(request, product_id, cart_id):
     cart = Cart.objects.get(cart_id=_cart_id(request))
@@ -119,3 +117,7 @@ def cart(request):
         'tax': tax
     }
     return render(request, 'store/cart.html', context)
+
+
+def checkout(request):
+    return render(request, 'store/checkout.html')
