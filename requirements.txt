@@ -1,7 +1,10 @@
 asgiref==3.5.0
 astroid==2.9.3
 autopep8==1.6.0
+certifi==2021.10.8
+charset-normalizer==2.0.12
 Django==4.0.2
+idna==3.3
 isort==5.10.1
 jedi==0.18.1
 lazy-object-proxy==1.7.1
@@ -15,6 +18,8 @@ pylint==2.12.2
 pylint-django==2.5.2
 pylint-plugin-utils==0.7
 python-decouple==3.6
+requests==2.27.1
 sqlparse==0.4.2
 toml==0.10.2
+urllib3==1.26.8
 wrapt==1.13.3
