@@ -24,8 +24,6 @@
 						{% if order.order_note %}
 						<b>Order Note: </b> {{order.order_note}}
 						{% endif %}
-
-
 					</div>
 				</div>
 				<div class="card">
@@ -145,7 +143,7 @@
         }
     }
     return cookieValue;
-}
+	}
 
 	var amount = "{{ grand_total }}"
 	var url = "{% url 'payments' %}"
@@ -154,7 +152,7 @@
 	var payment_method = 'PayPal'
 	var redirect_url = "{% url 'order_complete' %}"
 	// Render the PayPal button into #paypal-button-container
-	paypal_sdk.Buttons({
+	paypal.Buttons({
 		style: {
 			color: 'blue',
 			shape: 'rect',
