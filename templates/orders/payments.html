@@ -154,8 +154,7 @@
 	var payment_method = 'PayPal'
 	var redirect_url = "{% url 'order_complete' %}"
 	// Render the PayPal button into #paypal-button-container
-	paypal.Buttons({
-
+	paypal_sdk.Buttons({
 		style: {
 			color: 'blue',
 			shape: 'rect',
