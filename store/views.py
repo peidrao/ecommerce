@@ -6,6 +6,7 @@ from django.contrib import messages
 from carts.models import CartItem
 from category.models import Category
 from store.forms import ReviewForm
+from orders.models import OrderProduct
 
 from store.models import Product, ReviewRating
 
@@ -40,18 +41,25 @@ def store(request, category_slug: str = None):
 
 def product_detail(request, category_slug: str = None, product_slug: str = None):
     try:
-        product = Product.objects.get(
-            category__slug=category_slug, slug=product_slug)
-        in_cart = CartItem.objects.filter(
-            cart__cart_id=_cart_id(request), product=product).exists()
-    except Product.DoesNotExist:
-        product = None
+        single_product = Product.objects.get(category__slug=category_slug, slug=product_slug)
+        in_cart = CartItem.objects.filter(cart__cart_id=_cart_id(request), product=single_product).exists()
+    except Exception as e:
+        raise e
 
-    reviews = ReviewRating.objects.filter(product=product.id, status=True)
+    if request.user.is_authenticated:
+        try:
+            orderproduct = OrderProduct.objects.filter(user=request.user, product_id=single_product.id).exists()
+        except OrderProduct.DoesNotExist:
+            orderproduct = None
+    else:
+        orderproduct = None
+
+    reviews = ReviewRating.objects.filter(product=single_product.id, status=True)
     context = {
-        'product': product,
+        'product': single_product,
         'in_cart': in_cart,
-        'reviews': reviews
+        'reviews': reviews,
+        'orderproduct': orderproduct
     }
     return render(request, 'store/product_detail.html', context)
 
